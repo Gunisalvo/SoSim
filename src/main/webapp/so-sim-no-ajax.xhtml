@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+        
+<h:head>
+   		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   		<link rel="stylesheet" type="text/css" href="css/so-sim-gui.css" />
+</h:head>
+<h:body>
+
+	<form id="so-sim-ui-body">
+   	
+		<h:panelGroup layout="block" id="wrapper">
+			
+			<h:panelGroup layout="block" id="soSim-body">
+					
+					<h:panelGroup layout="block" id="logo-container">
+					
+						<h:graphicImage id="logo" url="/img/log_sosim.png"/>
+					
+					</h:panelGroup>
+		
+					<h:panelGroup layout="block" id="counter-container">
+					
+						#{soSimConsoleBean.getUiLabel('frameNumber')} :
+						<h:outputText id="frameNumber" value="#{soSimConsoleBean.frameNumber}" />
+
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block" id="soSim-controls">
+					
+						<a4j:commandButton 	id="btn_create"
+    								action="#{soSimConsoleBean.createProcessTest}"
+    								image="/img/btn_create.png"
+    								title="#{soSimConsoleBean.getUiLabel('createProcess')}"
+	   								render="console"
+	   								reRender="frameNumber, ajaxPolling, console"/>
+    					<br/>
+    					<br/>
+    					<a4j:commandButton 	id="btn_startPause"
+    								action="#{soSimConsoleBean.startOrPauseSimulation}"
+    								disabled="#{soSimConsoleBean.startPauseButtonState}"
+    								image="#{soSimConsoleBean.startPauseButtonIcon}"
+    								title="#{soSimConsoleBean.getUiLabel('startPauseSimulation')}"
+	   								render="console"
+	   								reRender="frameNumber, ajaxPolling, console"/>
+    					&nbsp;&nbsp;
+	   					<a4j:commandButton 	id="btn_stop"
+	   								action="#{soSimConsoleBean.stopSimulation}"
+	   								disabled="#{soSimConsoleBean.stopButtonState}"
+	   								image="#{soSimConsoleBean.stopButtonIcon}"
+	   								title="#{soSimConsoleBean.getUiLabel('stopSimulation')}"
+	   								render="console"
+	   								reRender="frameNumber, ajaxPolling, console"/>
+					
+					</h:panelGroup>
+		
+					<h:panelGroup layout="block" id="cpu-container" styleClass="slot-container">
+						
+						<h:panelGroup layout="block" styleClass="slot-icon">
+						
+							<h:graphicImage id="ico_cpu" url="#{soSimConsoleBean.cpuIcon}"/>
+						
+						</h:panelGroup>
+						
+						<h:panelGroup layout="block" styleClass="slot-support">
+						
+							<h:graphicImage url="/img/fld_gray_box.png"/>
+						
+						</h:panelGroup>
+						
+						<h:panelGroup layout="block" styleClass="slot-pcb">
+						
+							<h:graphicImage id="running_pcb" url="#{soSimConsoleBean.runningPcbIcon}"/>
+						
+						</h:panelGroup>
+						
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block" id="io-container" class="slot-container">
+						
+						<h:panelGroup layout="block" class="slot-icon">
+						
+							<h:graphicImage id="ico_io" url="#{soSimConsoleBean.ioIcon}"/>
+						
+						</h:panelGroup>
+						
+						<h:panelGroup class="slot-support">
+						
+							<h:graphicImage url="/img/fld_gray_box.png"/>
+							
+						</h:panelGroup>
+						
+						<h:panelGroup class="slot-pcb">
+						
+							<h:graphicImage id="io_pcb" url="#{soSimConsoleBean.ioPcbIcon}"/>
+						
+						</h:panelGroup>
+					
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block" id="pcb-queue-container">
+					
+					</h:panelGroup>
+				
+			</h:panelGroup>
+			
+		</h:panelGroup>
+	
+	</form>
+	
+</h:body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+        
+   	<h:head>
+   		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   	</h:head>
+   
+   	<h:body>
+   		<h:form id="ajaxPolling">
+	        <a4j:poll 	id="poll"
+	        			interval="#{soSimConsoleBean.refreshInterval}"
+	        			enabled="#{soSimConsoleBean.ajaxPollRunning}"
+	            		render="frameNumber, ico_cpu, ico_io"
+	            		reRender="ajaxPolling, console"
+	            		action="#{soSimConsoleBean.redrawConsole}"/>
+    	</h:form>
+    	<h:form id="console">
+
+    		<span>
+    			#{soSimConsoleBean.getUiLabel('frameNumber')} :
+    			<h:outputText 		id="frameNumber"
+    								value="#{soSimConsoleBean.frameNumber}" />
+    		</span>
+
+    		<div style="margin: 0px auto;
+   						padding: 0;
+   						border: 2px solid black;
+   						width: 200px;
+   						height: 200px;">
+   					
+	    			<h:graphicImage id="ico_cpu" 
+	    							url="#{soSimConsoleBean.cpuIcon}"
+	    							style=" position:absolute; "/>	
+	    			<div style=" 	position:relative;
+	    							top:100px;">	
+						<h:graphicImage id="fld_gray_box" 
+		    							url="/img/fld_gray_box.png"
+		    							style="	position:absolute; "/>
+	    			</div>
+    		</div>
+    		<div style="margin: 0px auto;
+   						padding: 0;
+   						border: 2px solid black;
+   						width: 200px;
+   						height: 200px;
+   						text-align: center;">
+   					
+	    			<h:graphicImage id="ico_cpu2" 
+	    							url="#{soSimConsoleBean.cpuIcon}"
+	    							style=" position:absolute; "/>	
+	    			<div style=" 	position:relative;
+	    							text-align: center;
+	    							top:100px;">	
+						<h:graphicImage id="fld_gray_box2" 
+		    							url="/img/fld_gray_box.png"
+		    							style="	position:absolute; 
+		    									text-align: center;"/>
+	    			</div>
+    		</div>
+    		<div>
+    			<a4j:commandButton 	id="btn_create"
+    								action="#{soSimConsoleBean.createProcessTest}"
+    								image="/img/btn_empty.png"
+    								title="#{soSimConsoleBean.getUiLabel('createProcess')}"
+	   								render="console"
+	   								reRender="frameNumber, ajaxPolling, console"/>
+    			<br/>
+    			<br/>
+    			<a4j:commandButton 	id="btn_startPause"
+    								action="#{soSimConsoleBean.startOrPauseSimulation}"
+    								disabled="#{soSimConsoleBean.startPauseButtonState}"
+    								image="#{soSimConsoleBean.startPauseButtonIcon}"
+    								title="#{soSimConsoleBean.getUiLabel('startPauseSimulation')}"
+	   								render="console"
+	   								reRender="frameNumber, ajaxPolling, console"/>
+    			&nbsp;&nbsp;
+	   			<a4j:commandButton 	id="btn_stop"
+	   								action="#{soSimConsoleBean.stopSimulation}"
+	   								disabled="#{soSimConsoleBean.stopButtonState}"
+	   								image="#{soSimConsoleBean.stopButtonIcon}"
+	   								title="#{soSimConsoleBean.getUiLabel('stopSimulation')}"
+	   								render="console"
+	   								reRender="frameNumber, ajaxPolling, console"/>
+	   		</div>
+   		</h:form>
+   	</h:body>
+</html>
